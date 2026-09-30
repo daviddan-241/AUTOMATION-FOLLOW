@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T17:33:37.126Z",
+  "generated_at": "2026-09-30T18:03:03.196Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -12,9 +12,9 @@
   },
   "wallet": {
     "address": "EFsT8NxEmBsCEehfMQCVnDJKpRm5jNWLgLYGd8gmrz58",
-    "sol": 0.010045083,
-    "usd": 1.2,
-    "sol_price": 119.57
+    "sol": 0.00258646,
+    "usd": 0.41,
+    "sol_price": 160
   },
   "flip": {
     "mode": "grow",
@@ -23,12 +23,10 @@
     "last_scan": "2026-09-30T17:33:36.328Z"
   },
   "last_cycle": {
-    "time": "2026-09-30T17:04:06.202Z",
+    "time": "2026-09-30T18:01:48.308Z",
     "coins_scanned": 50,
-    "devs_followed": [
-      "PrayForMoon"
-    ],
-    "likes_made": 2,
+    "devs_followed": [],
+    "likes_made": 0,
     "new_follow_backs": [],
     "session_ok": true,
     "errors": []
