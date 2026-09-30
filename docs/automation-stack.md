@@ -52,3 +52,15 @@ Changes deployed:
 3. Every cycle audits the following list and fast-unfollows any outsider that slipped
    in (DELETE /following/{user_id} - note: unfollow is /following/{uid}, NOT /following/v2/{uid}).
 Manual purge: scripts/purge_outside_wallets.py (unfollowed 30 outsiders, 37 clean follows kept).
+
+## Flip automation (2026-09-30)
+The $1 (0.00837 SOL) flip attempt is live:
+- **pumpFlipWatch** backend function: every run snapshots the newest ~200 coins, flags coins whose
+  market cap grew >= 2x between snapshots (~30 min window, coin under 60 min old, mcap > $8k),
+  reads the wallet balance (RPC with fallbacks - mainnet-beta blocks some datacenter IPs;
+  publicnode/drpc work), and checks the held position against entry (TP +80%, SL -35%).
+- **pump-flip-watch workflow** (every 30 min): calls the function; only on buy/sell/manage does
+  the agent wake, execute the REAL trade in the browser (embedded wallet signing - headless
+  trade execution does not exist on pump.fun) and WhatsApp the owner.
+- Honest odds: $1 -> $100 needs ~75x. The rules give each trade a shot; most attempts will
+  fail. Everything is real: real wallet, real fills, real reporting.
