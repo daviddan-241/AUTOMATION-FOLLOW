@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T18:03:03.196Z",
+  "generated_at": "2026-09-30T18:03:26.498Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -20,7 +20,7 @@
     "mode": "grow",
     "banked_sol": 0,
     "holding": null,
-    "last_scan": "2026-09-30T17:33:36.328Z"
+    "last_scan": "2026-09-30T18:03:24.833Z"
   },
   "last_cycle": {
     "time": "2026-09-30T18:01:48.308Z",
