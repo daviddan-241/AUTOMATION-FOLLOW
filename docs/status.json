@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T10:32:24.115Z",
+  "generated_at": "2026-09-30T10:56:41.516Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -8,7 +8,7 @@
   },
   "account": {
     "username": "RiCkY671",
-    "followers_known": 2
+    "followers_known": 3
   },
   "wallet": {
     "address": "EFsT8NxEmBsCEehfMQCVnDJKpRm5jNWLgLYGd8gmrz58",
@@ -23,17 +23,15 @@
     "last_scan": "2026-09-30T10:32:23.557Z"
   },
   "last_cycle": {
-    "time": "2026-09-30T10:01:18.501Z",
+    "time": "2026-09-30T10:56:03.993Z",
     "coins_scanned": 50,
     "devs_followed": [
-      "ig228",
-      "ZenBlushRotate",
-      "Massivedotgg",
-      "LevelPlumPantry",
-      "GemMajesticLamb"
+      "AjarLacyToast"
     ],
-    "likes_made": 8,
-    "new_follow_backs": [],
+    "likes_made": 2,
+    "new_follow_backs": [
+      "ZenBlushRotate"
+    ],
     "session_ok": true,
     "errors": []
   }
