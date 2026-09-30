@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T15:07:31.405Z",
+  "generated_at": "2026-09-30T15:11:17.586Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -20,14 +20,14 @@
     "mode": "grow",
     "banked_sol": 0,
     "holding": null,
-    "last_scan": "2026-09-30T15:00:25.669Z"
+    "last_scan": "2026-09-30T15:08:19.285Z"
   },
   "last_cycle": {
-    "time": "2026-09-30T15:04:32.467Z",
+    "time": "2026-09-30T15:08:12.530Z",
     "coins_scanned": 50,
     "devs_followed": [
-      "GamboolGuy",
-      "PumpSunsetFreon"
+      "SlimyHyperBill",
+      "KranX"
     ],
     "likes_made": 3,
     "new_follow_backs": [],
