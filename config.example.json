@@ -1,0 +1,12 @@
+{
+  "email": "REQUEST_FROM_OWNER_IN_CHAT",
+  "auth_token": "STORED_SECURELY_NOT_IN_REPO",
+  "pump_device_id": "device-<uuid>",
+  "max_follows_per_cycle": 15,
+  "max_likes_per_cycle": 40,
+  "max_coins_scanned": 50,
+  "min_real_activity": 1,
+  "follower_limit": 30,
+  "request_delay_seconds": [2, 5],
+  "backoff_on_429_seconds": 60
+}
