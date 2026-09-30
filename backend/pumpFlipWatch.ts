@@ -14,6 +14,11 @@ const MAX_AGE_MIN = 60;       // only coins younger than this are buyable
 const MIN_MCAP = 8000;         // skip dust coins
 const TP_RATIO = 1.8;          // take profit at +80%
 const SL_RATIO = 0.65;         // stop loss at -35%
+// profit-tier plan (owner, 2026-09-30): grow to $10, then stake $3 of profit
+// on higher-stakes trades; if the $3 stake dies, stop for good (keep the bank).
+const GROW_TARGET_USD = 10;
+const STAKE_USD = 3;
+const DUST_SOL = 0.001;
 
 async function api(method: string, path: string) {
   const resp = await fetch(API + path, {
@@ -31,6 +36,16 @@ const RPCS = [
   "https://solana-rpc.publicnode.com",
   "https://solana.drpc.org",
 ];
+
+async function solPrice(): Promise<number> {
+  try {
+    const resp = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd", {
+      headers: { "User-Agent": "Mozilla/5.0", "Accept": "application/json" },
+    });
+    const d: any = await resp.json();
+    return d?.solana?.usd || 160;
+  } catch (_) { return 160; }
+}
 
 async function balance(addr: string): Promise<{ sol: number; rpc: string }> {
   for (const rpc of RPCS) {
@@ -61,6 +76,8 @@ Deno.serve(async (req) => {
 
     let prev: any[] = [];
     let holding: any = null;
+    let mode = "grow";
+    let banked = 0;
     if (st) {
       try {
         const rawPrev = JSON.parse(st.snapshot_json || "[]");
@@ -70,6 +87,8 @@ Deno.serve(async (req) => {
         });
       } catch (_) {}
       try { holding = JSON.parse(st.holding_json || "null"); } catch (_) {}
+      mode = st.mode || "grow";
+      banked = st.banked_sol || 0;
     }
 
     // fresh snapshot of newest 200 coins
@@ -101,6 +120,24 @@ Deno.serve(async (req) => {
     const bal = balRes.sol;
     result.balance_sol = bal;
     result.rpc_used = balRes.rpc;
+    const price = await solPrice();
+    result.sol_price = price;
+    result.usd_value = Math.round(bal * price * 100) / 100;
+    result.mode = mode;
+    result.banked_sol = banked;
+
+    // profit-tier transitions
+    if (mode === "grow" && result.usd_value >= GROW_TARGET_USD) {
+      mode = "stake";
+      banked = Math.max(0, bal - STAKE_USD / price);
+      result.mode_switch = `reached $${result.usd_value} - banking ${banked.toFixed(4)} SOL, staking $${STAKE_USD}`;
+    }
+    if (mode === "stake" && bal <= banked + 0.0005) {
+      mode = "stopped";
+      result.mode_switch = `stake died - stopped trading, keeping ${banked.toFixed(4)} SOL (~$${(banked * price).toFixed(2)}) banked`;
+    }
+    result.mode = mode;
+    result.banked_sol = banked;
 
     const now = Date.now();
     const prevMap = new Map(prev.map((p: any) => [p.mint, p]));
@@ -131,9 +168,17 @@ Deno.serve(async (req) => {
         result.action = "manage"; // price unknown - agent checks the coin page in browser
         result.reason = "held coin not in newest 200 - check price in browser";
       }
+    } else if (mode === "stopped") {
+      result.reason = "stopped after stake loss - bank is safe, no more trades";
     } else if (result.signals.length && bal >= MIN_FUEL_SOL) {
-      result.action = "buy";
-      result.reason = `top signal ${result.signals[0].symbol} x${result.signals[0].growth} in ${result.signals[0].age_min}min, balance ${bal.toFixed(4)} SOL`;
+      const buyAmount = mode === "stake" ? Math.max(0, bal - banked - DUST_SOL) : Math.max(0, bal - DUST_SOL);
+      if (buyAmount < 0.003) {
+        result.reason = `signal found but buyable amount too small (${buyAmount.toFixed(4)} SOL)`;
+      } else {
+        result.action = "buy";
+        result.buy_amount_sol = Math.round(buyAmount * 1e6) / 1e6;
+        result.reason = `${mode} mode: top signal ${result.signals[0].symbol} x${result.signals[0].growth} in ${result.signals[0].age_min}min, buying ${result.buy_amount_sol} SOL of ${bal.toFixed(4)}`;
+      }
     } else if (result.signals.length && bal < MIN_FUEL_SOL) {
       result.reason = `signal found but balance too low (${bal} SOL) - owner needs to deposit`;
       result.action = "low_fuel_signal";
@@ -146,9 +191,9 @@ Deno.serve(async (req) => {
       .map((c: any) => `${c.mint}|${c.mcap}`);
     const snapJson = JSON.stringify(snapList);
     if (st) {
-      await base44.asServiceRole.entities.FlipState.update(st.id, { snapshot_json: snapJson, last_run: new Date().toISOString() });
+      await base44.asServiceRole.entities.FlipState.update(st.id, { snapshot_json: snapJson, last_run: new Date().toISOString(), mode, banked_sol: banked });
     } else {
-      await base44.asServiceRole.entities.FlipState.create({ snapshot_json: snapJson, last_run: new Date().toISOString(), holding_json: "null", notes: "pump flip watcher state" });
+      await base44.asServiceRole.entities.FlipState.create({ snapshot_json: snapJson, last_run: new Date().toISOString(), holding_json: "null", mode, banked_sol: banked, notes: "pump flip watcher state" });
     }
 
     return new Response(JSON.stringify(result), { headers: { "Content-Type": "application/json" } });

@@ -64,3 +64,13 @@ The $1 (0.00837 SOL) flip attempt is live:
   trade execution does not exist on pump.fun) and WhatsApp the owner.
 - Honest odds: $1 -> $100 needs ~75x. The rules give each trade a shot; most attempts will
   fail. Everything is real: real wallet, real fills, real reporting.
+
+## Profit-tier plan (owner, 2026-09-30, v2 of the flip)
+Goal revised: $1.34 -> $10 is a very big win. Then automatically:
+1. **grow mode** (current): trade all-in minus dust, TP +80% / SL -35% per trade, compound.
+2. **stake mode**: the moment the wallet crosses $10, bank everything except a $3 stake
+   (SOL-priced at runtime). Trades risk ONLY the stake - the bank is untouchable.
+3. **stopped mode**: if the $3 stake dies, trading stops forever and the bank stays safe.
+State lives in FlipState (mode, banked_sol). Mode switches WhatsApp the owner.
+SOL price via CoinGecko with a $160 fallback. Balance via RPC fallback chain
+(mainnet-beta often blocks datacenter IPs; publicnode/drpc work).
