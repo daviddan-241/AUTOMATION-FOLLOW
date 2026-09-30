@@ -74,3 +74,21 @@ Goal revised: $1.34 -> $10 is a very big win. Then automatically:
 State lives in FlipState (mode, banked_sol). Mode switches WhatsApp the owner.
 SOL price via CoinGecko with a $160 fallback. Balance via RPC fallback chain
 (mainnet-beta often blocks datacenter IPs; publicnode/drpc work).
+
+## Web dashboard (live)
+- Public page: <Pages URL> (GitHub Pages, docs/index.html, reads docs/status.json)
+- pumpStatusPush backend function refreshes docs/status.json after every growth cycle
+  (hourly) and flip scan (30 min) - real data: wallet balance, mode, position,
+  last cycle, follow-backs, off-switch states.
+- Off switches: Controls entity (automation_enabled, growth_enabled, flip_enabled).
+  The owner flips them via WhatsApp ("stop everything" etc.); every function checks
+  them before doing anything, so the switches work even with zero chat credits.
+- pumpDashboard backend function also serves a full HTML panel with direct toggle
+  buttons once the app has a public subdomain (needs app publish).
+
+## Pro trading filters (v3, research-backed)
+Entry requires ALL of: usd mcap $12k-$120k, 2x mcap growth in ~30 min, coin <60 min
+old, socials present (twitter/telegram/website), dev holding <5% of supply,
+top-10 holder concentration <30% of circulating (bonding-curve accounts excluded),
+RugCheck not flagged danger. Exit ladder: +80% sell half, +160% sell half of rest,
+moonbag trails 25% below peak, hard stop -35%.

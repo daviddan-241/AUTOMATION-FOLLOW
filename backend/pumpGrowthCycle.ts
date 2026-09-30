@@ -67,6 +67,16 @@ Deno.serve(async (req) => {
   };
 
   try {
+    // kill switch (web dashboard off switch)
+    const ctlRaw: any = await base44.asServiceRole.entities.Controls.list({} as any);
+    const ctlAll: any[] = Array.isArray(ctlRaw) ? ctlRaw : (ctlRaw?.data || []);
+    const ctl = ctlAll[0];
+    if (ctl && (ctl.automation_enabled === false || ctl.growth_enabled === false)) {
+      log.errors.push("growth paused via dashboard off switch - skipping cycle");
+      await base44.asServiceRole.entities.CycleLog.create(log);
+      return new Response(JSON.stringify(log), { headers: { "Content-Type": "application/json" } });
+    }
+
     const raw: any = await base44.asServiceRole.entities.GrowthConfig.list({} as any);
     const all: any[] = Array.isArray(raw) ? raw : (raw?.data || raw?.items || raw?.results || []);
     const cfg = all.find((c: any) => c.active === true) || all[0];

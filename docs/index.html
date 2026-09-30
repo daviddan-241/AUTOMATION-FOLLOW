@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pump Automation - Live</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; background: #0b0e14; color: #e6e8ee; padding: 24px; }
+  h1 { font-size: 22px; margin-bottom: 2px; }
+  .sub { color: #8b93a7; font-size: 13px; margin-bottom: 18px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; max-width: 920px; }
+  .card { background: #141925; border: 1px solid #232b3d; border-radius: 12px; padding: 16px; }
+  .card h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: #8b93a7; margin-bottom: 10px; }
+  .row { display: flex; justify-content: space-between; gap: 8px; padding: 4px 0; font-size: 14px; }
+  .row .v { font-weight: 600; text-align: right; word-break: break-all; }
+  .on { color: #34d399; } .off { color: #f87171; } .warn { color: #fbbf24; }
+  .big { font-size: 26px; font-weight: 700; margin-bottom: 2px; }
+  .small { font-size: 12px; color: #8b93a7; margin-top: 10px; line-height: 1.5; }
+  .pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .pill { background: #1c2333; border-radius: 20px; padding: 3px 10px; font-size: 12px; }
+  #err { color: #f87171; margin-top: 14px; font-size: 13px; display: none; }
+  .refresh { color: #8b93a7; font-size: 12px; margin-top: 16px; }
+</style>
+</head>
+<body>
+<h1>Pump Automation &mdash; Live</h1>
+<div class="sub">@<span id="user">?</span> &middot; growth + flip bot status &middot; auto-updates every minute</div>
+<div class="grid">
+  <div class="card">
+    <h2>Wallet</h2>
+    <div class="big" id="usd">$?</div>
+    <div class="row"><span>SOL balance</span><span class="v" id="sol">?</span></div>
+    <div class="row"><span>SOL price</span><span class="v" id="price">?</span></div>
+  </div>
+  <div class="card">
+    <h2>Flip Trader</h2>
+    <div class="row"><span>Mode</span><span class="v" id="mode">?</span></div>
+    <div class="row"><span>Position</span><span class="v" id="pos">?</span></div>
+    <div class="row"><span>Banked (safe)</span><span class="v" id="bank">?</span></div>
+    <div class="row"><span>Last scan</span><span class="v" id="scan">?</span></div>
+    <div class="small">Plan: grow to $10, then stake $3 of profit. If the stake dies, trading stops forever and the bank is kept. Pro filters: dev holding &lt;5%, top-10 holders &lt;30%, RugCheck, socials. Exits: +80% sell half, +160% sell half of rest, moonbag trails 25% under peak, hard stop -35%.</div>
+  </div>
+  <div class="card">
+    <h2>Growth (hourly)</h2>
+    <div class="row"><span>Last cycle</span><span class="v" id="ctime">?</span></div>
+    <div class="row"><span>Coins scanned</span><span class="v" id="scan_coins">?</span></div>
+    <div class="row"><span>Likes made</span><span class="v" id="likes">?</span></div>
+    <div class="row"><span>Session</span><span class="v" id="session">?</span></div>
+    <div class="small" style="margin-top:4px">Devs followed:</div>
+    <div class="pills" id="devs"></div>
+    <div class="small" style="margin-top:6px">New follow-backs:</div>
+    <div class="pills" id="fbs"></div>
+  </div>
+  <div class="card">
+    <h2>Off Switches</h2>
+    <div class="row"><span>Everything</span><span class="v" id="c_all">?</span></div>
+    <div class="row"><span>Growth</span><span class="v" id="c_growth">?</span></div>
+    <div class="row"><span>Flip trading</span><span class="v" id="c_flip">?</span></div>
+    <div class="small">To stop or start anything, message your agent on WhatsApp:<br>
+    <b>"stop everything"</b> &middot; "stop growth" &middot; "stop flip" &middot; "start everything"<br>
+    The bot obeys the switches on its own - even without any chat.</div>
+  </div>
+</div>
+<div id="err"></div>
+<div class="refresh">Updated <span id="updated">?</span> &middot; source: daviddan-241/AUTOMATION-FOLLOW</div>
+<script>
+const ago = (iso) => {
+  if (!iso) return "?";
+  const m = Math.round((Date.now() - new Date(iso).getTime()) / 60000);
+  if (m < 1) return "just now";
+  if (m < 60) return m + " min ago";
+  return Math.round(m / 60) + " h ago";
+};
+const txt = (id, v) => document.getElementById(id).textContent = v;
+const flag = (id, on, onTxt, offTxt) => {
+  const el = document.getElementById(id);
+  el.textContent = on ? (onTxt || "RUNNING") : (offTxt || "STOPPED");
+  el.className = "v " + (on ? "on" : "off");
+};
+async function load() {
+  try {
+    const r = await fetch("status.json", { cache: "no-store" });
+    if (!r.ok) throw new Error("status " + r.status);
+    const d = await r.json();
+    document.getElementById("err").style.display = "none";
+    txt("user", d.account.username || "?");
+    txt("usd", "$" + (d.wallet.usd >= 0 ? d.wallet.usd.toFixed(2) : "?"));
+    txt("sol", d.wallet.sol >= 0 ? d.wallet.sol.toFixed(5) + " SOL" : "?");
+    txt("price", "$" + d.wallet.sol_price);
+    const m = d.flip.mode;
+    const mEl = document.getElementById("mode");
+    mEl.textContent = m; mEl.className = "v " + (m === "stopped" ? "off" : "on");
+    txt("pos", d.flip.holding ? d.flip.holding.symbol : "none (waiting for a clean signal)");
+    txt("bank", (d.flip.banked_sol || 0).toFixed(5) + " SOL");
+    txt("scan", ago(d.flip.last_scan));
+    txt("ctime", ago(d.last_cycle.time));
+    txt("scan_coins", d.last_cycle.coins_scanned);
+    txt("likes", d.last_cycle.likes_made);
+    const sEl = document.getElementById("session");
+    sEl.textContent = d.last_cycle.session_ok ? "OK" : "EXPIRED";
+    sEl.className = "v " + (d.last_cycle.session_ok ? "on" : "off");
+    document.getElementById("devs").innerHTML = (d.last_cycle.devs_followed || []).map(u => '<span class="pill">@' + u + "</span>").join("") || '<span class="pill">0 this cycle</span>';
+    document.getElementById("fbs").innerHTML = (d.last_cycle.new_follow_backs || []).map(u => '<span class="pill">' + u + "</span>").join("") || '<span class="pill">none yet</span>';
+    flag("c_all", d.controls.automation_enabled);
+    flag("c_growth", d.controls.growth_enabled);
+    flag("c_flip", d.controls.flip_enabled);
+    txt("updated", ago(d.generated_at));
+  } catch (e) {
+    const el = document.getElementById("err");
+    el.textContent = "Could not load status: " + e.message;
+    el.style.display = "block";
+  }
+}
+load();
+setInterval(load, 60000);
+</script>
+</body>
+</html>
