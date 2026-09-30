@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T15:00:26.518Z",
+  "generated_at": "2026-09-30T15:07:31.405Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -23,11 +23,11 @@
     "last_scan": "2026-09-30T15:00:25.669Z"
   },
   "last_cycle": {
-    "time": "2026-09-30T14:03:16.071Z",
+    "time": "2026-09-30T15:04:32.467Z",
     "coins_scanned": 50,
     "devs_followed": [
-      "TheLacySide",
-      "aisolana"
+      "GamboolGuy",
+      "PumpSunsetFreon"
     ],
     "likes_made": 3,
     "new_follow_backs": [],
