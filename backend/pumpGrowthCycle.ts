@@ -45,6 +45,7 @@ async function walletFresh(addr: string): Promise<boolean> {
     clearTimeout(t);
     const data: any = await resp.json();
     const sigs = data.result || [];
+    if (sigs.length >= 1000) return false; // too much history = not a fresh pump-native wallet
     if (!sigs.length) return true;
     const oldest = (sigs[sigs.length - 1].blockTime || 0) * 1000;
     return Date.now() - oldest < 90 * 24 * 3600 * 1000;
@@ -117,6 +118,7 @@ Deno.serve(async (req) => {
         for (const p of Array.isArray(b.json) ? b.json : []) {
           const uid = p.userId, u = p.username || "";
           if (!uid || already.has(uid) || p.is_banned) continue;
+          if (p.is_pump_user !== true) continue; // embedded Pump wallets only - never outside wallets
           if (!u || u.startsWith("user-")) continue;
           if ((p.followers || 0) >= (cfg.follower_limit ?? 30)) continue;
           cands.push(p);
@@ -151,6 +153,23 @@ Deno.serve(async (req) => {
         else if (l.status === 429) { await sleep(45000); }
         await pace();
       }
+    }
+
+    // 5b. audit: unfollow outside wallets fast (DELETE /following/{uid})
+    const auditList = await api(cfg, "GET", `/following/v3/following/${cfg.user_id}?limit=100`);
+    const auditFol = Array.isArray(auditList.json) ? auditList.json : [];
+    for (const f of auditFol) {
+      const uid = f.userId;
+      if (!uid) continue;
+      const pr = await api(cfg, "GET", `/users/${uid}`);
+      if (pr.status === 200 && pr.json && pr.json.is_pump_user === false) {
+        const unf = await api(cfg, "DELETE", `/following/${uid}`);
+        if (unf.status === 200 || unf.status === 201) {
+          log.errors.push(`unfollowed outside wallet: ${pr.json.username || uid}`);
+          await pace();
+        }
+      } else if (pr.status === 429) { await sleep(45000); }
+      else { await sleep(300); }
     }
 
     // 6. persist log

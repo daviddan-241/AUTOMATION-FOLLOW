@@ -40,3 +40,15 @@ Everything below is LIVE and verified (2026-09-30).
 ## First live batch (all real, verified via read APIs)
 - 67 real follows (every dev under 30 followers, fresh pump-native wallets), 12+ callout
   likes, first follow-back: Rodjioso (detected by the cycle function within minutes).
+
+
+## Outside-wallet fix (2026-09-30, v2)
+The clean API signal is `is_pump_user` on the profile:
+- `true`  = embedded Pump wallet (email/social login) - the only accounts we follow
+- `false` = outside/external wallet (Phantom etc.) - never followed; auto-unfollowed
+Changes deployed:
+1. Batch filter now requires `is_pump_user === true` (outside wallets never get followed).
+2. walletFresh() treats 1000+ on-chain signatures as an old/active wallet (rejects).
+3. Every cycle audits the following list and fast-unfollows any outsider that slipped
+   in (DELETE /following/{user_id} - note: unfollow is /following/{uid}, NOT /following/v2/{uid}).
+Manual purge: scripts/purge_outside_wallets.py (unfollowed 30 outsiders, 37 clean follows kept).
