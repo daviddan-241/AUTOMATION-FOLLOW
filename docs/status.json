@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T10:00:21.371Z",
+  "generated_at": "2026-09-30T10:03:47.749Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -13,8 +13,8 @@
   "wallet": {
     "address": "EFsT8NxEmBsCEehfMQCVnDJKpRm5jNWLgLYGd8gmrz58",
     "sol": 0.010045083,
-    "usd": 1.61,
-    "sol_price": 160
+    "usd": 1.2,
+    "sol_price": 119.35
   },
   "flip": {
     "mode": "grow",
@@ -23,10 +23,16 @@
     "last_scan": "2026-09-30T10:00:20.699Z"
   },
   "last_cycle": {
-    "time": "2026-09-30T09:03:09.933Z",
+    "time": "2026-09-30T10:01:18.501Z",
     "coins_scanned": 50,
-    "devs_followed": [],
-    "likes_made": 0,
+    "devs_followed": [
+      "ig228",
+      "ZenBlushRotate",
+      "Massivedotgg",
+      "LevelPlumPantry",
+      "GemMajesticLamb"
+    ],
+    "likes_made": 8,
     "new_follow_backs": [],
     "session_ok": true,
     "errors": []
