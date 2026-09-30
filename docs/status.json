@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T13:01:27.045Z",
+  "generated_at": "2026-09-30T13:02:30.993Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -14,7 +14,7 @@
     "address": "EFsT8NxEmBsCEehfMQCVnDJKpRm5jNWLgLYGd8gmrz58",
     "sol": 0.010045083,
     "usd": 1.22,
-    "sol_price": 121.94
+    "sol_price": 121.93
   },
   "flip": {
     "mode": "grow",
@@ -23,16 +23,11 @@
     "last_scan": "2026-09-30T13:01:25.742Z"
   },
   "last_cycle": {
-    "time": "2026-09-30T12:00:26.364Z",
+    "time": "2026-09-30T13:01:57.800Z",
     "coins_scanned": 50,
-    "devs_followed": [
-      "MrBlunt_420",
-      "yeahboyyy"
-    ],
-    "likes_made": 4,
-    "new_follow_backs": [
-      "POPPADARKO"
-    ],
+    "devs_followed": [],
+    "likes_made": 0,
+    "new_follow_backs": [],
     "session_ok": true,
     "errors": []
   }
