@@ -39,8 +39,19 @@ the account and follow back. All engagement is real — no fake accounts, no dry
 - Never follow the same dev twice (check the following list first).
 - Pacing: max ~15 follows and ~40 likes per cycle, 2-5s between actions, back off 60s on 429.
 
+## Flip bot (the $1 -> $20 attempt)
+
+`scripts/pump_flip.py` is the momentum scanner: watch brand-new coins, signal when market cap
+grows fast in the first minutes. It CANNOT place trades itself - pump.fun embedded-wallet
+trades must be signed in the browser - so it prints signals and the trade is executed in the
+pump.fun UI. Risk rules are baked in: ~$0.90 in, take profit at +80%, hard stop at -35%.
+Honest note: memecoins are a lottery; the $1 can go to zero. The bot just makes sure we take
+the best-odds shots instead of random ones.
+
 ## Status (as of 2026-09-30)
 
-- API fully mapped and verified live. Account logged in, bio updated (real).
-- First live cycle + scheduled deployment being finished in the Base44 goal `pump-growth`.
-- Update this section when things change.
+- API fully mapped and verified live. Account logged in (RiCkY671), bio updated (real).
+- FIRST LIVE BATCH DONE: 67 real follows, 12+ callout likes, first follow-back (Rodjioso).
+- Durable stack deployed: backend function pumpGrowthCycle + 2-hourly workflow with WhatsApp
+  follow-back alerts and session self-healing. See docs/automation-stack.md.
+- Flip bot ready, waiting on the $1 deposit in the Pump wallet.
