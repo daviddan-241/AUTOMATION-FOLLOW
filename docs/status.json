@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T20:04:36.497Z",
+  "generated_at": "2026-10-01T21:03:53.162Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -13,8 +13,8 @@
   "wallet": {
     "address": "EFsT8NxEmBsCEehfMQCVnDJKpRm5jNWLgLYGd8gmrz58",
     "sol": 0.007930597,
-    "usd": 1.27,
-    "sol_price": 160
+    "usd": 0.94,
+    "sol_price": 118.11
   },
   "flip": {
     "mode": "grow",
@@ -23,23 +23,26 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-01T20:04:18.964Z",
+    "time": "2026-10-01T21:03:30.580Z",
     "coins_scanned": 400,
     "devs_followed": [
-      "EarthyHappyDev",
-      "HumaneRuralShoe"
+      "FaintRipeBolt",
+      "SageMuddyCork"
     ],
     "likes_made": 0,
     "new_follow_backs": [],
     "session_ok": true,
     "errors": [
-      "skipped RoyalWisePuppy: 7 coins created",
-      "skipped unbornwhale0043: 6 coins created",
-      "skipped FomoInkyHelper: 2 coins created",
-      "skipped F3EAR: 47 coins created",
-      "skipped ymail: 2 coins created",
-      "skipped GIVENOF0X: 3 coins created",
-      "skipped AmusedEqualWolf: 3 coins created"
+      "skipped alphadotdev: 41 coins created",
+      "skipped Daviddlkj: 50 coins created",
+      "skipped Twilightme30: 4 coins created",
+      "skipped luiscanor: 6 coins created",
+      "skipped BubbleBirdOrca: 3 coins created",
+      "skipped VenomIsBased: 8 coins created",
+      "skipped K3VZ: 28 coins created",
+      "skipped HeldTopazChime: 3 coins created",
+      "skipped lurkzz: 17 coins created",
+      "skipped mynamesu: 33 coins created"
     ]
   }
 }
