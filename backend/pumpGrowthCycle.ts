@@ -35,7 +35,7 @@ async function walletFresh(addr: string): Promise<boolean> {
   // pump-native proxy: wallet is empty/young on-chain (embedded Pump wallet), not an old pro wallet
   try {
     const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), 4000);
+    const t = setTimeout(() => ctrl.abort(), 2500);
     const resp = await fetch("https://api.mainnet-beta.solana.com", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -102,9 +102,15 @@ Deno.serve(async (req) => {
     }
 
     // 3. discover new coins
-    const coinsResp = await api(cfg, "GET", "/coins?offset=0&limit=50&sort=created_timestamp&order=DESC");
-    if (coinsResp.status !== 200) throw new Error(`coins: ${coinsResp.status}`);
-    const coins = Array.isArray(coinsResp.json) ? coinsResp.json : [];
+    const coins: any[] = [];
+    for (let off = 0; off < 400; off += 50) {
+      const coinsResp = await api(cfg, "GET", `/coins?offset=${off}&limit=50&sort=created_timestamp&order=DESC`);
+      if (coinsResp.status !== 200) break;
+      const page = Array.isArray(coinsResp.json) ? coinsResp.json : [];
+      coins.push(...page);
+      if (page.length < 50) break;
+      await sleep(300);
+    }
     log.coins_scanned = coins.length;
 
     const creators: string[] = [];
@@ -115,10 +121,15 @@ Deno.serve(async (req) => {
     }
 
     // who I already follow
-    const myFollowing = await api(cfg, "GET", `/following/v3/following/${cfg.user_id}?limit=100`);
-    const already = new Set(
-      (Array.isArray(myFollowing.json) ? myFollowing.json : []).map((f: any) => f.userId).filter(Boolean)
-    );
+    const already = new Set<string>();
+    for (let pg = 0; pg < 6; pg++) {
+      const mf = await api(cfg, "GET", `/following/v3/following/${cfg.user_id}?limit=100&offset=${pg * 100}`);
+      if (mf.status !== 200) break;
+      const arr = Array.isArray(mf.json) ? mf.json : [];
+      for (const f of arr) if (f.userId) already.add(f.userId);
+      if (arr.length < 100) break;
+      await sleep(400);
+    }
 
     // 4. batch profiles + filters
     const cands: any[] = [];
@@ -140,15 +151,17 @@ Deno.serve(async (req) => {
     // 5. engage: follow + like their callouts
     const maxF = cfg.max_follows_per_cycle ?? 12;
     const maxL = cfg.max_likes_per_cycle ?? 15;
+    const deadline = Date.now() + 200000; // hard stop: always leave time to log + audit
     for (const p of cands) {
       if (log.devs_followed.length >= maxF || log.likes_made >= maxL) break;
+      if (Date.now() > deadline) { log.errors.push("engage deadline reached - finishing cycle"); break; }
       const uid = p.userId;
-      if (!(await walletFresh(p.address))) continue;
       const cl = await api(cfg, "GET", `/callout/list/${uid}`);
       if (cl.status === 429) { await sleep(45000); continue; }
       if (cl.status !== 200) { log.errors.push(`callouts ${p.username}: ${cl.status}`); continue; }
       const real = (cl.json.callouts || []).filter((k: any) => (k.thesis || "").trim());
       if (!real.length) continue;
+      if (!(await walletFresh(p.address))) continue; // RPC only for devs we will actually follow
       const f = await api(cfg, "POST", `/following/v2/${uid}`, {});
       if (f.status === 401) { log.session_ok = false; log.errors.push("session expired mid-cycle"); break; }
       if (f.status === 429) { await sleep(45000); continue; }
@@ -165,25 +178,44 @@ Deno.serve(async (req) => {
       }
     }
 
-    // 5b. audit: unfollow outside wallets fast (DELETE /following/{uid})
-    const auditList = await api(cfg, "GET", `/following/v3/following/${cfg.user_id}?limit=100`);
-    const auditFol = Array.isArray(auditList.json) ? auditList.json : [];
-    for (const f of auditFol) {
-      const uid = f.userId;
-      if (!uid) continue;
-      const pr = await api(cfg, "GET", `/users/${uid}`);
-      if (pr.status === 200 && pr.json && pr.json.is_pump_user === false) {
-        const unf = await api(cfg, "DELETE", `/following/${uid}`);
-        if (unf.status === 200 || unf.status === 201) {
-          log.errors.push(`unfollowed outside wallet: ${pr.json.username || uid}`);
-          await pace();
-        }
-      } else if (pr.status === 429) { await sleep(45000); }
-      else { await sleep(300); }
-    }
+    // 6. persist log immediately after the follow phase (audit updates it after)
+    let logId: any = undefined;
+    try {
+      const created: any = await base44.asServiceRole.entities.CycleLog.create(log);
+      logId = created?.id || created?._id || undefined;
+    } catch (_) {}
 
-    // 6. persist log
-    await base44.asServiceRole.entities.CycleLog.create(log);
+    // 5b. audit (batched): unfollow outside wallets fast (DELETE /following/{uid})
+    const auditFol: any[] = [];
+    for (let pg = 0; pg < 6; pg++) {
+      const al = await api(cfg, "GET", `/following/v3/following/${cfg.user_id}?limit=100&offset=${pg * 100}`);
+      if (al.status !== 200) break;
+      const arr = Array.isArray(al.json) ? al.json : [];
+      auditFol.push(...arr);
+      if (arr.length < 100) break;
+      await sleep(400);
+    }
+    const audMap = new Map<string, string>(); // address -> userId
+    for (const f of auditFol) if (f.userId && f.address) audMap.set(f.address, f.userId);
+    const audAddrs = Array.from(audMap.keys());
+    for (let i = 0; i < audAddrs.length; i += 50) {
+      const b = await api(cfg, "POST", "/users/batch", { addresses: audAddrs.slice(i, i + 50) });
+      if (b.status !== 429 && b.status !== 200 && b.status !== 201) { await sleep(2000); continue; }
+      if (b.status === 429) { await sleep(45000); continue; }
+      for (const p of Array.isArray(b.json) ? b.json : []) {
+        if (p.is_pump_user === false && p.userId) {
+          const unf = await api(cfg, "DELETE", `/following/${p.userId}`);
+          if (unf.status === 200 || unf.status === 201) {
+            log.errors.push(`unfollowed outside wallet: ${p.username || p.userId}`);
+            await pace();
+          }
+        }
+      }
+      await sleep(600);
+    }
+    log.audited = auditFol.length;
+
+    if (logId) { try { await base44.asServiceRole.entities.CycleLog.update(logId, log); } catch (_) {} }
     return new Response(JSON.stringify(log), { headers: { "Content-Type": "application/json" } });
   } catch (e: any) {
     log.errors.push(String(e));
