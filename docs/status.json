@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T17:01:46.996Z",
+  "generated_at": "2026-10-01T18:04:24.375Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -23,11 +23,11 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-01T17:01:32.313Z",
+    "time": "2026-10-01T18:04:10.037Z",
     "coins_scanned": 400,
     "devs_followed": [
-      "VibeCookedSalad",
-      "InkFateGuru"
+      "AppleAmusedCrow",
+      "ChipMangoSeer"
     ],
     "likes_made": 0,
     "new_follow_backs": [],
