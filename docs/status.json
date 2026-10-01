@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T18:04:24.375Z",
+  "generated_at": "2026-10-01T19:04:33.857Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -23,15 +23,26 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-01T18:04:10.037Z",
+    "time": "2026-10-01T19:04:13.156Z",
     "coins_scanned": 400,
     "devs_followed": [
-      "AppleAmusedCrow",
-      "ChipMangoSeer"
+      "OvalSilentHat",
+      "RogueGreyGalley"
     ],
     "likes_made": 0,
     "new_follow_backs": [],
     "session_ok": true,
-    "errors": []
+    "errors": [
+      "holding check failed: BOUNTY",
+      "skipped clrstudio: 2 coins created",
+      "skipped fuzzysalmon0322: 13 coins created",
+      "skipped FomoWalnutCar: 3 coins created",
+      "skipped evzz: 50 coins created",
+      "skipped ajqn1x: 2 coins created",
+      "skipped buzz1985: 50 coins created",
+      "skipped hotdogwaterdev: 43 coins created",
+      "skipped TheNobleTwill: 4 coins created",
+      "skipped BandVerdantLord: 3 coins created"
+    ]
   }
 }
