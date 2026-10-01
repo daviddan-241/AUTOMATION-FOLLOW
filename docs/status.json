@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T01:32:28.779Z",
+  "generated_at": "2026-10-01T02:02:37.253Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -13,14 +13,14 @@
   "wallet": {
     "address": "EFsT8NxEmBsCEehfMQCVnDJKpRm5jNWLgLYGd8gmrz58",
     "sol": 0.00065024,
-    "usd": 0.08,
-    "sol_price": 118.2
+    "usd": 0.1,
+    "sol_price": 160
   },
   "flip": {
     "mode": "grow",
     "banked_sol": 0,
     "holding": null,
-    "last_scan": "2026-10-01T01:32:17.949Z"
+    "last_scan": "2026-10-01T02:02:36.506Z"
   },
   "last_cycle": {
     "time": "2026-09-30T18:01:48.308Z",
