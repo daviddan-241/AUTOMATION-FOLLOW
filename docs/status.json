@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T12:01:51.695Z",
+  "generated_at": "2026-10-01T12:05:14.847Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -12,8 +12,8 @@
   },
   "wallet": {
     "address": "EFsT8NxEmBsCEehfMQCVnDJKpRm5jNWLgLYGd8gmrz58",
-    "sol": -1,
-    "usd": -160,
+    "sol": 0.00065024,
+    "usd": 0.1,
     "sol_price": 160
   },
   "flip": {
@@ -23,20 +23,12 @@
     "last_scan": "2026-10-01T12:01:49.032Z"
   },
   "last_cycle": {
-    "time": "2026-10-01T11:01:11.987Z",
+    "time": "2026-10-01T12:03:23.817Z",
     "coins_scanned": 400,
-    "devs_followed": [
-      "FomoEagerTravel",
-      "NosySoftSkull",
-      "MonaDV",
-      "voidcapp",
-      "DullChildishWeb"
-    ],
-    "likes_made": 7,
+    "devs_followed": [],
+    "likes_made": 0,
     "new_follow_backs": [],
     "session_ok": true,
-    "errors": [
-      "engage deadline reached - finishing cycle"
-    ]
+    "errors": []
   }
 }
