@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T21:03:53.162Z",
+  "generated_at": "2026-10-01T22:02:02.904Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -8,13 +8,13 @@
   },
   "account": {
     "username": "RiCkY671",
-    "followers_known": 5
+    "followers_known": 6
   },
   "wallet": {
     "address": "EFsT8NxEmBsCEehfMQCVnDJKpRm5jNWLgLYGd8gmrz58",
     "sol": 0.007930597,
-    "usd": 0.94,
-    "sol_price": 118.11
+    "usd": 1.27,
+    "sol_price": 160
   },
   "flip": {
     "mode": "grow",
@@ -23,26 +23,17 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-01T21:03:30.580Z",
+    "time": "2026-10-01T22:01:44.080Z",
     "coins_scanned": 400,
     "devs_followed": [
-      "FaintRipeBolt",
-      "SageMuddyCork"
+      "MaizeDazedSki",
+      "SpeckleAtomMaxi"
     ],
     "likes_made": 0,
-    "new_follow_backs": [],
+    "new_follow_backs": [
+      "Emicrypto"
+    ],
     "session_ok": true,
-    "errors": [
-      "skipped alphadotdev: 41 coins created",
-      "skipped Daviddlkj: 50 coins created",
-      "skipped Twilightme30: 4 coins created",
-      "skipped luiscanor: 6 coins created",
-      "skipped BubbleBirdOrca: 3 coins created",
-      "skipped VenomIsBased: 8 coins created",
-      "skipped K3VZ: 28 coins created",
-      "skipped HeldTopazChime: 3 coins created",
-      "skipped lurkzz: 17 coins created",
-      "skipped mynamesu: 33 coins created"
-    ]
+    "errors": []
   }
 }
