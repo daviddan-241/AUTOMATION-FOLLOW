@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T10:03:08.350Z",
+  "generated_at": "2026-10-02T10:35:01.150Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -8,12 +8,12 @@
   },
   "account": {
     "username": "RiCkY671",
-    "followers_known": 9
+    "followers_known": 10
   },
   "wallet": {
     "address": "EFsT8NxEmBsCEehfMQCVnDJKpRm5jNWLgLYGd8gmrz58",
-    "sol": -1,
-    "usd": -160,
+    "sol": 0.007930597,
+    "usd": 1.27,
     "sol_price": 160
   },
   "flip": {
@@ -23,28 +23,28 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-02T10:01:55.733Z",
+    "time": "2026-10-02T10:33:57.596Z",
     "coins_scanned": 1050,
     "devs_followed": [
-      "TheMotleyTeeth",
-      "EWIN_Prize_Pool",
-      "LitheWhipEye",
-      "TRX6"
+      "ZenDustyGrouse",
+      "BONI171"
     ],
     "likes_made": 0,
-    "new_follow_backs": [],
+    "new_follow_backs": [
+      "Profile666"
+    ],
     "session_ok": true,
     "errors": [
-      "skipped amenablecrab578: 4 coins created",
-      "skipped RichPrickleDev: 9 coins created",
-      "skipped TheProfess0r: 4 coins created",
-      "skipped 1kira1: 6 coins created",
-      "skipped REKTBRO0: 7 coins created",
-      "skipped PANDA_DEV2: 3 coins created",
-      "skipped memehunter777: 9 coins created",
-      "skipped Treos777: 8 coins created",
-      "skipped usedfish10659: 10 coins created",
-      "skipped FirPlumeIntern: 12 coins created"
+      "skipped moonfact: 4 coins created",
+      "skipped CryptoAtlas: 16 coins created",
+      "skipped Monkey_D_Trade: 3 coins created",
+      "skipped OddBelievedCup: 10 coins created",
+      "skipped MatureLyingVest: 47 coins created",
+      "skipped DegenDeployer0x: 3 coins created",
+      "skipped ChartJustWasabi: 7 coins created",
+      "skipped PearWaryComic: 8 coins created",
+      "skipped WCRF: 5 coins created",
+      "skipped deftmanta40925: 18 coins created"
     ]
   }
 }
