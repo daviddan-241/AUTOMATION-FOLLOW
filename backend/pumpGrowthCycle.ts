@@ -1,4 +1,10 @@
-// pumpGrowthCycle - runs one pump.fun growth cycle using the active GrowthConfig.
+// pumpGrowthCycle v5 - owner spec 2026-10-02: FOLLOW-ONLY, follow plenty.
+// Follow coin devs who (a) HOLD a real position in their own coin (>= 1% of supply,
+// verified via RugCheck - public Solana RPCs block the runtime IP),
+// (b) are pump.fun embedded wallets (is_pump_user true, no outside wallets),
+// (c) created only 1-2 coins EVER, (d) their coin has >= $3k mcap and is SOL-paired,
+// (e) have under 100 followers. No buys, no callouts, no tag posts.
+// Volume: max_follows_per_cycle from GrowthConfig (owner wants plenty of follows).
 // Auth: pump.fun `auth_token` cookie stored in GrowthConfig (see docs/auth-flow.md).
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
 
@@ -6,6 +12,22 @@ const API = "https://frontend-api-v3.pump.fun";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const pace = () => sleep(2000 + Math.random() * 1200);
+
+// owner rule: dev must have created LESS THAN 2 coins EVER (not just in the scan window).
+// One paginated probe: if 2+ coins come back for the creator, skip.
+async function totalCoinsByCreator(cfg: any, creator: string): Promise<number> {
+  let n = 0, total = 0, guard = 0;
+  while (guard++ < 6) {
+    const r = await api(cfg, "GET", `/coins?creator=${creator}&limit=50&offset=${n}&sort=created_timestamp&order=DESC`);
+    if (r.status !== 200) return -1;
+    const page = Array.isArray(r.json) ? r.json : [];
+    total += page.length;
+    n += page.length;
+    if (page.length < 50) return total;
+    if (total >= 2) return total; // early exit: 2+ coins = disqualified, no need to count further
+  }
+  return total;
+}
 
 async function api(cfg: any, method: string, path: string, body?: any) {
   const headers: Record<string, string> = {
@@ -31,26 +53,27 @@ async function api(cfg: any, method: string, path: string, body?: any) {
   }
 }
 
-async function walletFresh(addr: string): Promise<boolean> {
-  // pump-native proxy: wallet is empty/young on-chain (embedded Pump wallet), not an old pro wallet
+// owner rule: the dev must still hold their own coin.
+// Verified via RugCheck's public token report (creatorBalance), because Solana public
+// RPCs block the function runtime's IP. Returns creatorBalance or -1 if unverifiable.
+async function devCoinHoldingPct(mint: string): Promise<number> {
+  // returns dev holding as % of total supply, or -1 if unverifiable
   try {
     const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), 2500);
-    const resp = await fetch("https://api.mainnet-beta.solana.com", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "getSignaturesForAddress", params: [addr, { limit: 1000 }] }),
+    const t = setTimeout(() => ctrl.abort(), 6000);
+    const resp = await fetch(`https://api.rugcheck.xyz/v1/tokens/${mint}/report`, {
+      headers: { "User-Agent": "Mozilla/5.0", "Accept": "application/json" },
       signal: ctrl.signal,
     });
     clearTimeout(t);
+    if (resp.status !== 200) return -1;
     const data: any = await resp.json();
-    const sigs = data.result || [];
-    if (sigs.length >= 1000) return false; // too much history = not a fresh pump-native wallet
-    if (!sigs.length) return true;
-    const oldest = (sigs[sigs.length - 1].blockTime || 0) * 1000;
-    return Date.now() - oldest < 90 * 24 * 3600 * 1000;
+    const bal = data?.creatorBalance;
+    const supply = data?.token?.supply;
+    if (typeof bal !== "number" || typeof supply !== "number" || supply <= 0) return -1;
+    return (bal / supply) * 100;
   } catch (_) {
-    return true; // don't drop candidates on RPC errors
+    return -1; // cannot verify -> skip the dev (all real, no guesses)
   }
 }
 
@@ -60,7 +83,7 @@ Deno.serve(async (req) => {
     cycle_time: new Date().toISOString(),
     coins_scanned: 0,
     devs_followed: [],
-    likes_made: 0,
+    pending_callouts: [],
     new_follow_backs: [],
     errors: [],
     session_ok: true,
@@ -80,7 +103,7 @@ Deno.serve(async (req) => {
     const raw: any = await base44.asServiceRole.entities.GrowthConfig.list({} as any);
     const all: any[] = Array.isArray(raw) ? raw : (raw?.data || raw?.items || raw?.results || []);
     const cfg = all.find((c: any) => c.active === true) || all[0];
-    if (!cfg) throw new Error("no active GrowthConfig (list shape: " + JSON.stringify(raw).slice(0, 300) + ")");
+    if (!cfg) throw new Error("no active GrowthConfig");
 
     // 1. session check
     const me = await api(cfg, "GET", "/auth/my-profile");
@@ -91,7 +114,7 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify(log), { headers: { "Content-Type": "application/json" } });
     }
 
-    // 2. follow-back detection (cheap read)
+    // 2. follow-back detection
     const fol = await api(cfg, "GET", `/following/followers/${cfg.user_id}`);
     const followers = Array.isArray(fol.json) ? fol.json : [];
     const known: string[] = Array.isArray(cfg.known_followers) ? cfg.known_followers : [];
@@ -101,7 +124,7 @@ Deno.serve(async (req) => {
       await base44.asServiceRole.entities.GrowthConfig.update(cfg.id, { known_followers: followerNames });
     }
 
-    // 3. discover new coins
+    // 3. deep scan newest coins + count creations per dev (owner: only 1-2 coin creators)
     const coins: any[] = [];
     for (let off = 0; off < 400; off += 50) {
       const coinsResp = await api(cfg, "GET", `/coins?offset=${off}&limit=50&sort=created_timestamp&order=DESC`);
@@ -113,12 +136,19 @@ Deno.serve(async (req) => {
     }
     log.coins_scanned = coins.length;
 
-    const creators: string[] = [];
-    const seen = new Set<string>();
+    const creations = new Map<string, any[]>(); // creator -> coins (>= $3k mcap ones only)
     for (const c of coins) {
-      const cr = c.creator;
-      if (cr && !seen.has(cr)) { seen.add(cr); creators.push(cr); }
+      if (c.is_banned || !c.creator || !c.mint) continue;
+      if ((c.usd_market_cap ?? 0) < 3000) continue; // owner rule: coin must have 3k+ mcap
+      if (c.quote_mint !== "11111111111111111111111111111111") continue; // SOL-paired only (SOL buy flow)
+      const arr = creations.get(c.creator) || [];
+      arr.push(c);
+      creations.set(c.creator, arr);
     }
+
+    // creator must have created only 1-2 coins total (within the scan window)
+    const totalByCreator = new Map<string, number>();
+    for (const c of coins) if (c.creator) totalByCreator.set(c.creator, (totalByCreator.get(c.creator) || 0) + 1);
 
     // who I already follow
     const already = new Set<string>();
@@ -131,61 +161,57 @@ Deno.serve(async (req) => {
       await sleep(400);
     }
 
-    // 4. batch profiles + filters
-    const cands: any[] = [];
-    for (let i = 0; i < creators.length; i += 50) {
-      const b = await api(cfg, "POST", "/users/batch", { addresses: creators.slice(i, i + 50) });
+    // 4. batch profiles + filters (embedded wallets only, any follower count)
+    const creatorAddrs: string[] = [];
+    for (const [cr, cs] of creations) {
+      if ((totalByCreator.get(cr) || 0) > 2) continue; // owner rule: only devs with 1-2 coins created
+      creatorAddrs.push(cr);
+    }
+    const cands: any[] = []; // {profile, coin}
+    for (let i = 0; i < creatorAddrs.length; i += 50) {
+      const b = await api(cfg, "POST", "/users/batch", { addresses: creatorAddrs.slice(i, i + 50) });
       if (b.status === 200 || b.status === 201) {
         for (const p of Array.isArray(b.json) ? b.json : []) {
           const uid = p.userId, u = p.username || "";
           if (!uid || already.has(uid) || p.is_banned) continue;
           if (p.is_pump_user !== true) continue; // embedded Pump wallets only - never outside wallets
           if (!u || u.startsWith("user-")) continue;
-          if ((p.followers || 0) >= (cfg.follower_limit ?? 30)) continue;
-          cands.push(p);
+          if ((p.followers || 0) >= 100) continue; // owner rule: only devs under 100 followers
+          const coin = (creations.get(p.address) || []).sort((x: any, y: any) => y.usd_market_cap - x.usd_market_cap)[0];
+          if (!coin) continue;
+          cands.push({ profile: p, coin });
         }
       }
       await sleep(500);
     }
 
-    // 5. engage: follow + like their callouts
-    const maxF = cfg.max_follows_per_cycle ?? 12;
-    const maxL = cfg.max_likes_per_cycle ?? 15;
-    const deadline = Date.now() + 200000; // hard stop: always leave time to log + audit
-    for (const p of cands) {
-      if (log.devs_followed.length >= maxF || log.likes_made >= maxL) break;
+    // 5. engage: follow first (then the workflow agent step buys + posts the callout)
+    const maxF = cfg.max_follows_per_cycle ?? 15; // follow-only mode: no callout cap
+    const deadline = Date.now() + 200000;
+    for (const cand of cands) {
+      if (log.devs_followed.length >= maxF) break;
       if (Date.now() > deadline) { log.errors.push("engage deadline reached - finishing cycle"); break; }
-      const uid = p.userId;
-      const cl = await api(cfg, "GET", `/callout/list/${uid}`);
-      if (cl.status === 429) { await sleep(45000); continue; }
-      if (cl.status !== 200) { log.errors.push(`callouts ${p.username}: ${cl.status}`); continue; }
-      const real = (cl.json.callouts || []).filter((k: any) => (k.thesis || "").trim());
-      if (!real.length) continue;
-      if (!(await walletFresh(p.address))) continue; // RPC only for devs we will actually follow
-      const f = await api(cfg, "POST", `/following/v2/${uid}`, {});
+      const p = cand.profile, coin = cand.coin;
+      // owner rule: dev must have created less than 2 coins EVER (verified via creator listing, not just scan window)
+      const totalCreated = await totalCoinsByCreator(cfg, p.address || coin.creator);
+      if (totalCreated > 2) { log.errors.push(`skipped ${p.username}: ${totalCreated} coins created`); continue; }
+      if (totalCreated < 0) { log.errors.push(`coin-count check failed: ${p.username}`); continue; }
+      // owner rule: dev must hold a real position in their own coin (>= 1% of supply, verified via RugCheck)
+      const devPct = await devCoinHoldingPct(coin.mint);
+      if (devPct < 0) { log.errors.push(`holding check failed: ${coin.symbol}`); continue; }
+      if (devPct < 1) continue; // dust holding = effectively sold -> skip
+      const f = await api(cfg, "POST", `/following/v2/${p.userId}`, {});
       if (f.status === 401) { log.session_ok = false; log.errors.push("session expired mid-cycle"); break; }
       if (f.status === 429) { await sleep(45000); continue; }
       if (f.status !== 200 && f.status !== 201) { log.errors.push(`follow ${p.username}: ${f.status}`); continue; }
-      log.devs_followed.push({ username: p.username, userId: uid, followers: p.followers });
+      log.devs_followed.push({ username: p.username, userId: p.userId, followers: p.followers, coin: coin.symbol, mint: coin.mint, mcap_usd: coin.usd_market_cap, dev_holding_pct: Math.round(devPct * 100) / 100 });
       await pace();
-      for (const k of real.slice(0, 2)) {
-        if (log.likes_made >= maxL) break;
-        if (k.hasLiked) continue;
-        const l = await api(cfg, "POST", `/callout/${k.calloutId}/like`, {});
-        if (l.status === 200 || l.status === 201) log.likes_made++;
-        else if (l.status === 429) { await sleep(45000); }
-        await pace();
-      }
     }
 
-    // 6. persist log immediately after the follow phase (audit updates it after)
-    let logId: any = undefined;
-    try {
-      const created: any = await base44.asServiceRole.entities.CycleLog.create(log);
-      logId = created?.id || created?._id || undefined;
-    } catch (_) {}
+    // 6. persist log
+    try { await base44.asServiceRole.entities.CycleLog.create(log); } catch (_) {}
 
-    // 5b. audit (batched): unfollow outside wallets fast (DELETE /following/{uid})
+    // 5b. audit (batched): unfollow outside wallets
     const auditFol: any[] = [];
     for (let pg = 0; pg < 6; pg++) {
       const al = await api(cfg, "GET", `/following/v3/following/${cfg.user_id}?limit=100&offset=${pg * 100}`);
@@ -195,13 +221,13 @@ Deno.serve(async (req) => {
       if (arr.length < 100) break;
       await sleep(400);
     }
-    const audMap = new Map<string, string>(); // address -> userId
+    const audMap = new Map<string, string>();
     for (const f of auditFol) if (f.userId && f.address) audMap.set(f.address, f.userId);
     const audAddrs = Array.from(audMap.keys());
     for (let i = 0; i < audAddrs.length; i += 50) {
       const b = await api(cfg, "POST", "/users/batch", { addresses: audAddrs.slice(i, i + 50) });
-      if (b.status !== 429 && b.status !== 200 && b.status !== 201) { await sleep(2000); continue; }
       if (b.status === 429) { await sleep(45000); continue; }
+      if (b.status !== 200 && b.status !== 201) { await sleep(2000); continue; }
       for (const p of Array.isArray(b.json) ? b.json : []) {
         if (p.is_pump_user === false && p.userId) {
           const unf = await api(cfg, "DELETE", `/following/${p.userId}`);
@@ -215,7 +241,6 @@ Deno.serve(async (req) => {
     }
     log.audited = auditFol.length;
 
-    if (logId) { try { await base44.asServiceRole.entities.CycleLog.update(logId, log); } catch (_) {} }
     return new Response(JSON.stringify(log), { headers: { "Content-Type": "application/json" } });
   } catch (e: any) {
     log.errors.push(String(e));
