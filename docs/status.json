@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T16:34:20.980Z",
+  "generated_at": "2026-10-02T17:01:51.479Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -23,27 +23,34 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-02T16:33:23.851Z",
+    "time": "2026-10-02T17:00:17.782Z",
     "coins_scanned": 1050,
     "devs_followed": [
-      "SugarSwiftKrill",
-      "TheBagCaption",
-      "SandSoapyHeaven"
+      "HailClassyTruck",
+      "AtomPowerIdea",
+      "ChillDenimSpur",
+      "MemeSassyCoat",
+      "ThreeHolyTrader",
+      "PrickleSteepBed",
+      "AlikeJustZinc",
+      "VibeWoolPilot",
+      "1blesser",
+      "LedgRin"
     ],
     "likes_made": 0,
     "new_follow_backs": [],
     "session_ok": true,
     "errors": [
-      "skipped Goodofcriptos: 3 coins created",
-      "skipped pirzzzz: 6 coins created",
-      "skipped BestLyingNylon: 5 coins created",
-      "skipped Derekdegen: 22 coins created",
-      "skipped deebo831: 50 coins created",
-      "skipped tunastyll: 6 coins created",
-      "skipped labubuuuuuuuuuu: 50 coins created",
-      "skipped RocketAlderMonk: 7 coins created",
-      "skipped henrykeim: 9 coins created",
-      "skipped moondogF: 4 coins created"
+      "holding check failed: MYLAR",
+      "skipped SuperFreeDetail: 50 coins created",
+      "skipped PrimeCaringChad: 5 coins created",
+      "skipped BabyDrip: 12 coins created",
+      "skipped imnotgcr: 31 coins created",
+      "skipped GemTintedSlope: 13 coins created",
+      "skipped blondnarwhal126: 18 coins created",
+      "skipped egorars: 8 coins created",
+      "skipped Nadha1: 50 coins created",
+      "skipped devsoldmybag: 47 coins created"
     ]
   }
 }
