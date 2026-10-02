@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T05:02:25.069Z",
+  "generated_at": "2026-10-02T06:06:52.477Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -12,8 +12,8 @@
   },
   "wallet": {
     "address": "EFsT8NxEmBsCEehfMQCVnDJKpRm5jNWLgLYGd8gmrz58",
-    "sol": -1,
-    "usd": -160,
+    "sol": 0.007930597,
+    "usd": 1.27,
     "sol_price": 160
   },
   "flip": {
@@ -23,25 +23,25 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-02T05:02:08.964Z",
-    "coins_scanned": 400,
+    "time": "2026-10-02T06:05:00.656Z",
+    "coins_scanned": 1050,
     "devs_followed": [
-      "SourFairThorium",
-      "FiveNiftyButter"
+      "HarshRiftRose"
     ],
     "likes_made": 0,
     "new_follow_backs": [],
     "session_ok": true,
     "errors": [
-      "skipped LaserNosyTartan: 9 coins created",
-      "skipped HumbleAlikeSage: 2 coins created",
-      "skipped Dashcrypto_: 50 coins created",
-      "skipped jpegs_dev: 2 coins created",
-      "skipped MarshSpotMonkey: 7 coins created",
-      "skipped DiscoJewsKing: 40 coins created",
-      "skipped SpikyNiceChad: 8 coins created",
-      "skipped DearHorseTown: 3 coins created",
-      "skipped FillTheBags: 4 coins created"
+      "skipped phingphong: 43 coins created",
+      "skipped EpicAppleGallon: 5 coins created",
+      "skipped Rizyzwu: 13 coins created",
+      "skipped SilkHumbleRook: 3 coins created",
+      "skipped TheNobleBeak: 4 coins created",
+      "skipped PalmAgedBroker: 7 coins created",
+      "skipped donalddeving: 50 coins created",
+      "skipped HodlGainfulCap: 3 coins created",
+      "skipped chillsealmeatyr: 5 coins created",
+      "skipped finesquid: 3 coins created"
     ]
   }
 }
