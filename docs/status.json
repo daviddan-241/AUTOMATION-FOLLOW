@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T06:32:31.130Z",
+  "generated_at": "2026-10-02T07:05:57.352Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -8,13 +8,13 @@
   },
   "account": {
     "username": "RiCkY671",
-    "followers_known": 7
+    "followers_known": 8
   },
   "wallet": {
     "address": "EFsT8NxEmBsCEehfMQCVnDJKpRm5jNWLgLYGd8gmrz58",
     "sol": 0.007930597,
-    "usd": 0.97,
-    "sol_price": 121.88
+    "usd": 1.27,
+    "sol_price": 160
   },
   "flip": {
     "mode": "grow",
@@ -23,23 +23,31 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-02T06:31:39.175Z",
+    "time": "2026-10-02T07:04:49.016Z",
     "coins_scanned": 1050,
-    "devs_followed": [],
+    "devs_followed": [
+      "goldkraken65254",
+      "CottonLivelyDev",
+      "JustaDotxyz",
+      "Whaleisme",
+      "LavaLocalNeem"
+    ],
     "likes_made": 0,
-    "new_follow_backs": [],
+    "new_follow_backs": [
+      "ProngFairShrimp"
+    ],
     "session_ok": true,
     "errors": [
-      "skipped ballondor: 3 coins created",
-      "skipped cozmos: 11 coins created",
-      "skipped JeanPhilVanDamm: 9 coins created",
-      "skipped Derekdegen: 10 coins created",
-      "skipped JDevarc: 8 coins created",
-      "skipped SlyLowlyToucan: 3 coins created",
-      "skipped AssA2: 4 coins created",
-      "skipped TinyDarkBanker: 3 coins created",
-      "skipped Rectime: 24 coins created",
-      "skipped ethandex: 16 coins created"
+      "skipped AwakeSilkTaker: 4 coins created",
+      "skipped HarvestFrostFox: 14 coins created",
+      "skipped johne12345: 8 coins created",
+      "skipped Stayli: 16 coins created",
+      "skipped Boaz: 21 coins created",
+      "skipped rabidorca20399: 4 coins created",
+      "skipped IcedBreezyGamer: 14 coins created",
+      "skipped ApeWigglyOwner: 17 coins created",
+      "skipped PUMPTOWERS: 3 coins created",
+      "holding check failed: Bitcat"
     ]
   }
 }
