@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T11:31:56.588Z",
+  "generated_at": "2026-10-02T12:05:38.046Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -23,23 +23,12 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-02T11:31:03.269Z",
+    "time": "2026-10-02T12:03:13.963Z",
     "coins_scanned": 1050,
     "devs_followed": [],
     "likes_made": 0,
     "new_follow_backs": [],
     "session_ok": true,
-    "errors": [
-      "skipped StreamSulkyCat: 3 coins created",
-      "skipped DumbMoneyWolf: 18 coins created",
-      "skipped richlobster0641: 15 coins created",
-      "skipped SparkWiseWay: 4 coins created",
-      "skipped vlados007: 29 coins created",
-      "skipped sickorca63042: 50 coins created",
-      "skipped FirPlumeIntern: 14 coins created",
-      "skipped Juniormill: 11 coins created",
-      "skipped onamor0316: 9 coins created",
-      "skipped FROG_1: 11 coins created"
-    ]
+    "errors": []
   }
 }
