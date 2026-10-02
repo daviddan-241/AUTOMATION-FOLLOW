@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T16:03:56.699Z",
+  "generated_at": "2026-10-02T16:34:20.980Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -23,34 +23,27 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-02T16:01:40.696Z",
+    "time": "2026-10-02T16:33:23.851Z",
     "coins_scanned": 1050,
     "devs_followed": [
-      "PowerBirdDust",
-      "GoldenBusyChive",
-      "PlumModernNovel",
-      "TinyWindAdmiral",
-      "MintRightNumber",
-      "GLOOPRAVE",
-      "AgentXYZdotfun",
-      "FernSilkenChief",
-      "TrenchLaceDuke",
-      "frathouse"
+      "SugarSwiftKrill",
+      "TheBagCaption",
+      "SandSoapyHeaven"
     ],
     "likes_made": 0,
     "new_follow_backs": [],
     "session_ok": true,
     "errors": [
-      "holding check failed: MRT",
-      "skipped TheCordPuck: 8 coins created",
-      "skipped frog691046: 4 coins created",
-      "skipped DecorousNoonSky: 32 coins created",
-      "skipped LitheCalmGamer: 50 coins created",
-      "skipped PriceyBloomSage: 3 coins created",
-      "skipped jaxorz: 10 coins created",
-      "skipped A2AD: 10 coins created",
-      "skipped paog: 50 coins created",
-      "skipped LacyImmenseMaxi: 3 coins created"
+      "skipped Goodofcriptos: 3 coins created",
+      "skipped pirzzzz: 6 coins created",
+      "skipped BestLyingNylon: 5 coins created",
+      "skipped Derekdegen: 22 coins created",
+      "skipped deebo831: 50 coins created",
+      "skipped tunastyll: 6 coins created",
+      "skipped labubuuuuuuuuuu: 50 coins created",
+      "skipped RocketAlderMonk: 7 coins created",
+      "skipped henrykeim: 9 coins created",
+      "skipped moondogF: 4 coins created"
     ]
   }
 }
