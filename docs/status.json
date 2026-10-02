@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T15:35:06.089Z",
+  "generated_at": "2026-10-02T16:03:56.699Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -23,30 +23,34 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-02T15:33:46.522Z",
+    "time": "2026-10-02T16:01:40.696Z",
     "coins_scanned": 1050,
     "devs_followed": [
-      "AgateTameChamp",
-      "LedgRin",
-      "KILOWILD",
-      "JuJaFlyWork"
+      "PowerBirdDust",
+      "GoldenBusyChive",
+      "PlumModernNovel",
+      "TinyWindAdmiral",
+      "MintRightNumber",
+      "GLOOPRAVE",
+      "AgentXYZdotfun",
+      "FernSilkenChief",
+      "TrenchLaceDuke",
+      "frathouse"
     ],
     "likes_made": 0,
-    "new_follow_backs": [
-      "BONI171"
-    ],
+    "new_follow_backs": [],
     "session_ok": true,
     "errors": [
-      "skipped MissedMeAgain: 10 coins created",
-      "skipped DarkSecretDive: 10 coins created",
-      "skipped ZachXBT_: 13 coins created",
-      "skipped Finder_1000x: 34 coins created",
-      "skipped Cherrylover: 10 coins created",
-      "skipped illkraken14168: 4 coins created",
-      "skipped SouthVineArtist: 9 coins created",
-      "skipped BestLyingNylon: 4 coins created",
-      "skipped mrmoney777: 50 coins created",
-      "skipped TorpidTameBear: 3 coins created"
+      "holding check failed: MRT",
+      "skipped TheCordPuck: 8 coins created",
+      "skipped frog691046: 4 coins created",
+      "skipped DecorousNoonSky: 32 coins created",
+      "skipped LitheCalmGamer: 50 coins created",
+      "skipped PriceyBloomSage: 3 coins created",
+      "skipped jaxorz: 10 coins created",
+      "skipped A2AD: 10 coins created",
+      "skipped paog: 50 coins created",
+      "skipped LacyImmenseMaxi: 3 coins created"
     ]
   }
 }
