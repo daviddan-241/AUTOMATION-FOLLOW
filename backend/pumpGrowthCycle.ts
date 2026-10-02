@@ -126,7 +126,7 @@ Deno.serve(async (req) => {
 
     // 3. deep scan newest coins + count creations per dev (owner: only 1-2 coin creators)
     const coins: any[] = [];
-    for (let off = 0; off < 400; off += 50) {
+    for (let off = 0; off < 1500; off += 50) { // deep scan: newest ~1500 coins to catch missed qualifying devs
       const coinsResp = await api(cfg, "GET", `/coins?offset=${off}&limit=50&sort=created_timestamp&order=DESC`);
       if (coinsResp.status !== 200) break;
       const page = Array.isArray(coinsResp.json) ? coinsResp.json : [];
