@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T10:35:01.150Z",
+  "generated_at": "2026-10-02T11:05:26.019Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -23,28 +23,26 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-02T10:33:57.596Z",
+    "time": "2026-10-02T11:04:25.759Z",
     "coins_scanned": 1050,
     "devs_followed": [
-      "ZenDustyGrouse",
-      "BONI171"
+      "SUSMRR",
+      "HOME_SWEET_HOME"
     ],
     "likes_made": 0,
-    "new_follow_backs": [
-      "Profile666"
-    ],
+    "new_follow_backs": [],
     "session_ok": true,
     "errors": [
-      "skipped moonfact: 4 coins created",
-      "skipped CryptoAtlas: 16 coins created",
-      "skipped Monkey_D_Trade: 3 coins created",
-      "skipped OddBelievedCup: 10 coins created",
-      "skipped MatureLyingVest: 47 coins created",
-      "skipped DegenDeployer0x: 3 coins created",
-      "skipped ChartJustWasabi: 7 coins created",
-      "skipped PearWaryComic: 8 coins created",
-      "skipped WCRF: 5 coins created",
-      "skipped deftmanta40925: 18 coins created"
+      "skipped RascoSolAX: 13 coins created",
+      "skipped nickgurrr: 22 coins created",
+      "skipped rawnarwhal40100: 8 coins created",
+      "skipped earthworks: 21 coins created",
+      "skipped bravecleanrot: 14 coins created",
+      "skipped degen_nebula: 10 coins created",
+      "skipped turbokrakenpuzz: 18 coins created",
+      "skipped cryptomarsis: 9 coins created",
+      "skipped MiniFanCellar: 3 coins created",
+      "skipped WheatPlumTrader: 4 coins created"
     ]
   }
 }
