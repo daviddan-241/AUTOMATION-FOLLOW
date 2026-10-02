@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T07:05:57.352Z",
+  "generated_at": "2026-10-02T07:35:11.204Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -8,7 +8,7 @@
   },
   "account": {
     "username": "RiCkY671",
-    "followers_known": 8
+    "followers_known": 9
   },
   "wallet": {
     "address": "EFsT8NxEmBsCEehfMQCVnDJKpRm5jNWLgLYGd8gmrz58",
@@ -23,31 +23,32 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-02T07:04:49.016Z",
+    "time": "2026-10-02T07:33:58.549Z",
     "coins_scanned": 1050,
     "devs_followed": [
-      "goldkraken65254",
-      "CottonLivelyDev",
-      "JustaDotxyz",
-      "Whaleisme",
-      "LavaLocalNeem"
+      "TinyZenLeather",
+      "CATTANA",
+      "SurfGloryFiber",
+      "FlatFogBurst",
+      "SnowProngKing",
+      "LumaPay"
     ],
     "likes_made": 0,
     "new_follow_backs": [
-      "ProngFairShrimp"
+      "STiKMAN11"
     ],
     "session_ok": true,
     "errors": [
-      "skipped AwakeSilkTaker: 4 coins created",
-      "skipped HarvestFrostFox: 14 coins created",
-      "skipped johne12345: 8 coins created",
-      "skipped Stayli: 16 coins created",
-      "skipped Boaz: 21 coins created",
-      "skipped rabidorca20399: 4 coins created",
-      "skipped IcedBreezyGamer: 14 coins created",
-      "skipped ApeWigglyOwner: 17 coins created",
-      "skipped PUMPTOWERS: 3 coins created",
-      "holding check failed: Bitcat"
+      "skipped icallcoin: 4 coins created",
+      "skipped Mikasaaa: 18 coins created",
+      "skipped Derekdegen: 12 coins created",
+      "skipped 4DADS: 14 coins created",
+      "skipped 8j8eml: 50 coins created",
+      "skipped Rame7: 38 coins created",
+      "skipped meanihuy: 13 coins created",
+      "skipped 6pfako1: 23 coins created",
+      "skipped NeonLyingPlate: 3 coins created",
+      "skipped tm1: 21 coins created"
     ]
   }
 }
