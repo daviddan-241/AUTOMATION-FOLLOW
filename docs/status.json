@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T09:04:40.438Z",
+  "generated_at": "2026-10-02T09:35:12.321Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -23,28 +23,29 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-02T09:03:21.949Z",
+    "time": "2026-10-02T09:34:04.172Z",
     "coins_scanned": 1050,
     "devs_followed": [
-      "SigmaAshMammal",
-      "mizublue",
-      "Ston1k",
-      "MagentaInkNomad"
+      "MemeHard0",
+      "GigaGraveMemory",
+      "Profile666",
+      "IcedPineCoyote",
+      "HotFirBuilding"
     ],
     "likes_made": 0,
     "new_follow_backs": [],
     "session_ok": true,
     "errors": [
-      "skipped WryChadViper: 8 coins created",
-      "skipped LuckyAbleSniper: 50 coins created",
-      "skipped FrillVibeBanker: 3 coins created",
-      "skipped fropiq: 50 coins created",
-      "skipped CottonySunQuit: 12 coins created",
-      "skipped DiamondTidePin: 8 coins created",
-      "skipped raccoonmypeanu: 11 coins created",
-      "skipped mdmpage: 3 coins created",
-      "skipped head230: 25 coins created",
-      "skipped bbroer: 8 coins created"
+      "skipped Lilly_12: 22 coins created",
+      "skipped turbokrakenpuzz: 15 coins created",
+      "skipped ChartJustWasabi: 5 coins created",
+      "skipped meempng: 3 coins created",
+      "skipped QuiltChiefAnt: 10 coins created",
+      "skipped tiringwhale4309: 17 coins created",
+      "skipped herecomestosun: 15 coins created",
+      "skipped WagmiWiryLord: 12 coins created",
+      "skipped gh0st_apex: 16 coins created",
+      "skipped crypto_pump: 26 coins created"
     ]
   }
 }
