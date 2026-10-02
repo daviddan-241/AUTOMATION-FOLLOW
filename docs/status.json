@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T08:34:03.200Z",
+  "generated_at": "2026-10-02T09:04:40.438Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -23,25 +23,28 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-02T08:33:06.211Z",
+    "time": "2026-10-02T09:03:21.949Z",
     "coins_scanned": 1050,
     "devs_followed": [
-      "BagFamousCarbon"
+      "SigmaAshMammal",
+      "mizublue",
+      "Ston1k",
+      "MagentaInkNomad"
     ],
     "likes_made": 0,
     "new_follow_backs": [],
     "session_ok": true,
     "errors": [
-      "skipped FourRunePartner: 39 coins created",
-      "skipped maxsolamiii: 50 coins created",
-      "skipped shadowsix: 11 coins created",
-      "skipped LyingMidiWhale: 4 coins created",
-      "skipped NearDustyMatch: 11 coins created",
-      "skipped ThePressure: 44 coins created",
-      "skipped 4DADS: 16 coins created",
-      "skipped SixthSincereJaw: 4 coins created",
-      "skipped UltraNeonWeaver: 9 coins created",
-      "skipped EpicPetalLeek: 19 coins created"
+      "skipped WryChadViper: 8 coins created",
+      "skipped LuckyAbleSniper: 50 coins created",
+      "skipped FrillVibeBanker: 3 coins created",
+      "skipped fropiq: 50 coins created",
+      "skipped CottonySunQuit: 12 coins created",
+      "skipped DiamondTidePin: 8 coins created",
+      "skipped raccoonmypeanu: 11 coins created",
+      "skipped mdmpage: 3 coins created",
+      "skipped head230: 25 coins created",
+      "skipped bbroer: 8 coins created"
     ]
   }
 }
