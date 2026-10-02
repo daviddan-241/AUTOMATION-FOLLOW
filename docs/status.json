@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T00:02:39.461Z",
+  "generated_at": "2026-10-02T01:04:21.197Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -13,8 +13,8 @@
   "wallet": {
     "address": "EFsT8NxEmBsCEehfMQCVnDJKpRm5jNWLgLYGd8gmrz58",
     "sol": 0.007930597,
-    "usd": 1.27,
-    "sol_price": 160
+    "usd": 0.94,
+    "sol_price": 118.77
   },
   "flip": {
     "mode": "grow",
@@ -23,12 +23,18 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-02T00:01:48.174Z",
+    "time": "2026-10-02T01:04:06.500Z",
     "coins_scanned": 400,
-    "devs_followed": [],
+    "devs_followed": [
+      "MaxIcySupernova",
+      "MaxJungleHockey"
+    ],
     "likes_made": 0,
     "new_follow_backs": [],
     "session_ok": true,
-    "errors": []
+    "errors": [
+      "skipped SlimyDeluxeFeet: 18 coins created",
+      "skipped spentshrimp0658: 22 coins created"
+    ]
   }
 }
