@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T14:02:40.541Z",
+  "generated_at": "2026-10-02T14:33:21.714Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -23,28 +23,29 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-02T14:01:36.204Z",
+    "time": "2026-10-02T14:32:17.331Z",
     "coins_scanned": 1050,
     "devs_followed": [
-      "BigPaleSniper",
-      "JellyGroovyApe",
-      "PickledHillGong",
-      "LumaPayy"
+      "dtmaaacawk",
+      "Bruno124",
+      "PrimeChadLibra",
+      "ShineSourZydeco",
+      "CandyApeFile"
     ],
     "likes_made": 0,
     "new_follow_backs": [],
     "session_ok": true,
     "errors": [
-      "skipped richPDK: 38 coins created",
-      "skipped MassiveFoilKick: 3 coins created",
-      "skipped _Swift1122: 5 coins created",
-      "skipped SneaXx: 14 coins created",
-      "holding check failed: OPTIMUS",
-      "holding check failed: NC 1",
-      "skipped therat123: 3 coins created",
-      "skipped EmptyBlushHoney: 3 coins created",
-      "skipped anti_rug_dev: 3 coins created",
-      "skipped doczus_: 17 coins created"
+      "skipped shabbykraken767: 8 coins created",
+      "skipped ObsidianHailKoi: 7 coins created",
+      "skipped Rame7: 45 coins created",
+      "skipped SuperbRogueGate: 26 coins created",
+      "skipped megaorcahairyfo: 24 coins created",
+      "skipped biggremlin777: 3 coins created",
+      "skipped NiceNightAvatar: 3 coins created",
+      "skipped TugCaptain: 7 coins created",
+      "skipped furkan112: 4 coins created",
+      "skipped LavishStarDev: 13 coins created"
     ]
   }
 }
