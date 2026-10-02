@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T15:02:48.472Z",
+  "generated_at": "2026-10-02T15:35:06.089Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -8,13 +8,13 @@
   },
   "account": {
     "username": "RiCkY671",
-    "followers_known": 11
+    "followers_known": 12
   },
   "wallet": {
     "address": "EFsT8NxEmBsCEehfMQCVnDJKpRm5jNWLgLYGd8gmrz58",
     "sol": 0.007930597,
-    "usd": 0.96,
-    "sol_price": 120.57
+    "usd": 1.27,
+    "sol_price": 160
   },
   "flip": {
     "mode": "grow",
@@ -23,29 +23,30 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-02T15:01:32.142Z",
+    "time": "2026-10-02T15:33:46.522Z",
     "coins_scanned": 1050,
     "devs_followed": [
-      "WryModernPeach",
-      "WaxSmoggyPepper",
-      "STEPPAZ"
+      "AgateTameChamp",
+      "LedgRin",
+      "KILOWILD",
+      "JuJaFlyWork"
     ],
     "likes_made": 0,
     "new_follow_backs": [
-      "ShineSourZydeco"
+      "BONI171"
     ],
     "session_ok": true,
     "errors": [
-      "skipped Cherrylover: 8 coins created",
-      "skipped ShinChan4: 20 coins created",
-      "skipped AboardBestFuel: 15 coins created",
-      "skipped SouthVineArtist: 6 coins created",
-      "skipped shabbykraken767: 10 coins created",
-      "skipped NeonLyingPlate: 5 coins created",
-      "skipped TurboCakeRebel: 12 coins created",
-      "skipped Nikeur2chatte: 12 coins created",
-      "skipped ExcitedNeonGum: 15 coins created",
-      "skipped LyraHarpstrings: 14 coins created"
+      "skipped MissedMeAgain: 10 coins created",
+      "skipped DarkSecretDive: 10 coins created",
+      "skipped ZachXBT_: 13 coins created",
+      "skipped Finder_1000x: 34 coins created",
+      "skipped Cherrylover: 10 coins created",
+      "skipped illkraken14168: 4 coins created",
+      "skipped SouthVineArtist: 9 coins created",
+      "skipped BestLyingNylon: 4 coins created",
+      "skipped mrmoney777: 50 coins created",
+      "skipped TorpidTameBear: 3 coins created"
     ]
   }
 }
