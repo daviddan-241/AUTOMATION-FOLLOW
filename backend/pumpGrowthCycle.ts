@@ -2,8 +2,8 @@
 // Follow coin devs who (a) HOLD a real position in their own coin (>= 1% of supply,
 // verified via RugCheck - public Solana RPCs block the runtime IP),
 // (b) are pump.fun embedded wallets (is_pump_user true, no outside wallets),
-// (c) created only 1-2 coins EVER, (d) their coin has >= $3k mcap and is SOL-paired,
-// (e) have under 100 followers. No buys, no callouts, no tag posts.
+// (c) created only 1-3 coins EVER, (d) their coin has >= $2k mcap and is SOL-paired,
+// (e) have under 200 followers. No buys, no callouts, no tag posts. Loosened for speed 2026-10-02.
 // Volume: max_follows_per_cycle from GrowthConfig (owner wants plenty of follows).
 // Auth: pump.fun `auth_token` cookie stored in GrowthConfig (see docs/auth-flow.md).
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
@@ -11,7 +11,7 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
 const API = "https://frontend-api-v3.pump.fun";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-const pace = () => sleep(2000 + Math.random() * 1200);
+const pace = () => sleep(1000 + Math.random() * 600);
 
 // owner rule: dev must have created LESS THAN 2 coins EVER (not just in the scan window).
 // One paginated probe: if 2+ coins come back for the creator, skip.
@@ -24,7 +24,7 @@ async function totalCoinsByCreator(cfg: any, creator: string): Promise<number> {
     total += page.length;
     n += page.length;
     if (page.length < 50) return total;
-    if (total >= 2) return total; // early exit: 2+ coins = disqualified, no need to count further
+    if (total >= 3) return total; // early exit: 2+ coins = disqualified, no need to count further
   }
   return total;
 }
@@ -139,7 +139,7 @@ Deno.serve(async (req) => {
     const creations = new Map<string, any[]>(); // creator -> coins (>= $3k mcap ones only)
     for (const c of coins) {
       if (c.is_banned || !c.creator || !c.mint) continue;
-      if ((c.usd_market_cap ?? 0) < 3000) continue; // owner rule: coin must have 3k+ mcap
+      if ((c.usd_market_cap ?? 0) < 2000) continue; // loosened: coin must have 2k+ mcap
       if (c.quote_mint !== "11111111111111111111111111111111") continue; // SOL-paired only (SOL buy flow)
       const arr = creations.get(c.creator) || [];
       arr.push(c);
@@ -164,7 +164,7 @@ Deno.serve(async (req) => {
     // 4. batch profiles + filters (embedded wallets only, any follower count)
     const creatorAddrs: string[] = [];
     for (const [cr, cs] of creations) {
-      if ((totalByCreator.get(cr) || 0) > 2) continue; // owner rule: only devs with 1-2 coins created
+      if ((totalByCreator.get(cr) || 0) > 3) continue; // loosened: devs with 1-3 coins created
       creatorAddrs.push(cr);
     }
     const cands: any[] = []; // {profile, coin}
@@ -176,7 +176,7 @@ Deno.serve(async (req) => {
           if (!uid || already.has(uid) || p.is_banned) continue;
           if (p.is_pump_user !== true) continue; // embedded Pump wallets only - never outside wallets
           if (!u || u.startsWith("user-")) continue;
-          if ((p.followers || 0) >= 100) continue; // owner rule: only devs under 100 followers
+          if ((p.followers || 0) >= 200) continue; // loosened: only devs under 200 followers
           const coin = (creations.get(p.address) || []).sort((x: any, y: any) => y.usd_market_cap - x.usd_market_cap)[0];
           if (!coin) continue;
           cands.push({ profile: p, coin });
@@ -186,15 +186,15 @@ Deno.serve(async (req) => {
     }
 
     // 5. engage: follow first (then the workflow agent step buys + posts the callout)
-    const maxF = cfg.max_follows_per_cycle ?? 15; // follow-only mode: no callout cap
+    const maxF = cfg.max_follows_per_cycle ?? 25; // follow-only mode, raised for speed
     const deadline = Date.now() + 200000;
     for (const cand of cands) {
       if (log.devs_followed.length >= maxF) break;
       if (Date.now() > deadline) { log.errors.push("engage deadline reached - finishing cycle"); break; }
       const p = cand.profile, coin = cand.coin;
-      // owner rule: dev must have created less than 2 coins EVER (verified via creator listing, not just scan window)
+      // loosened: dev must have created at most 3 coins EVER (verified via creator listing, not just scan window)
       const totalCreated = await totalCoinsByCreator(cfg, p.address || coin.creator);
-      if (totalCreated > 2) { log.errors.push(`skipped ${p.username}: ${totalCreated} coins created`); continue; }
+      if (totalCreated > 3) { log.errors.push(`skipped ${p.username}: ${totalCreated} coins created`); continue; }
       if (totalCreated < 0) { log.errors.push(`coin-count check failed: ${p.username}`); continue; }
       // owner rule: dev must hold a real position in their own coin (>= 1% of supply, verified via RugCheck)
       const devPct = await devCoinHoldingPct(coin.mint);
