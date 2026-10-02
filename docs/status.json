@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T12:05:38.046Z",
+  "generated_at": "2026-10-02T12:34:55.015Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -13,8 +13,8 @@
   "wallet": {
     "address": "EFsT8NxEmBsCEehfMQCVnDJKpRm5jNWLgLYGd8gmrz58",
     "sol": 0.007930597,
-    "usd": 1.27,
-    "sol_price": 160
+    "usd": 0.97,
+    "sol_price": 122.69
   },
   "flip": {
     "mode": "grow",
@@ -23,12 +23,31 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-02T12:03:13.963Z",
+    "time": "2026-10-02T12:33:22.725Z",
     "coins_scanned": 1050,
-    "devs_followed": [],
+    "devs_followed": [
+      "BaldDeepPatio",
+      "NightGamyLynx",
+      "AjarKindScript",
+      "GrassLongSniper",
+      "RainLapisDoctor",
+      "ComfySameCrate",
+      "Ktzchen_Lab"
+    ],
     "likes_made": 0,
     "new_follow_backs": [],
     "session_ok": true,
-    "errors": []
+    "errors": [
+      "skipped Bazyl677: 3 coins created",
+      "skipped alphadotdev: 46 coins created",
+      "skipped habibiarabo: 4 coins created",
+      "skipped dryoctopus99647: 50 coins created",
+      "skipped lonelywolf16: 4 coins created",
+      "holding check failed: cccecrvcvx",
+      "skipped nice_guy_: 6 coins created",
+      "skipped maviadrop: 9 coins created",
+      "skipped ApeWigglyOwner: 28 coins created",
+      "skipped QuiltPieMarket: 5 coins created"
+    ]
   }
 }
