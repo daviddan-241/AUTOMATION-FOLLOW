@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T13:35:26.271Z",
+  "generated_at": "2026-10-02T14:02:40.541Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -23,29 +23,28 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-02T13:34:18.170Z",
+    "time": "2026-10-02T14:01:36.204Z",
     "coins_scanned": 1050,
     "devs_followed": [
-      "RAKIIII",
-      "IvyMotleyStoat",
-      "BriefHalfElk",
-      "ZenQuillMochi",
-      "ScarletRustFrog"
+      "BigPaleSniper",
+      "JellyGroovyApe",
+      "PickledHillGong",
+      "LumaPayy"
     ],
     "likes_made": 0,
     "new_follow_backs": [],
     "session_ok": true,
     "errors": [
-      "skipped MaxRippleNoise: 3 coins created",
-      "skipped earthworks: 25 coins created",
-      "skipped voidcapp: 8 coins created",
-      "skipped Lalors: 37 coins created",
-      "skipped PushingPp: 3 coins created",
-      "skipped renzyboi: 13 coins created",
-      "skipped FlatHyperPotato: 3 coins created",
-      "skipped LovelyChadFork: 3 coins created",
-      "skipped zenkraken09815: 13 coins created",
-      "skipped WoodPaperTiger: 4 coins created"
+      "skipped richPDK: 38 coins created",
+      "skipped MassiveFoilKick: 3 coins created",
+      "skipped _Swift1122: 5 coins created",
+      "skipped SneaXx: 14 coins created",
+      "holding check failed: OPTIMUS",
+      "holding check failed: NC 1",
+      "skipped therat123: 3 coins created",
+      "skipped EmptyBlushHoney: 3 coins created",
+      "skipped anti_rug_dev: 3 coins created",
+      "skipped doczus_: 17 coins created"
     ]
   }
 }
