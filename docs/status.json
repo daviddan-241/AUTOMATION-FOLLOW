@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T07:35:11.204Z",
+  "generated_at": "2026-10-02T08:04:13.503Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -23,32 +23,27 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-02T07:33:58.549Z",
+    "time": "2026-10-02T08:03:08.939Z",
     "coins_scanned": 1050,
     "devs_followed": [
-      "TinyZenLeather",
-      "CATTANA",
-      "SurfGloryFiber",
-      "FlatFogBurst",
-      "SnowProngKing",
-      "LumaPay"
+      "Moiron",
+      "HardlyNiceBear",
+      "RichEarlyRoad"
     ],
     "likes_made": 0,
-    "new_follow_backs": [
-      "STiKMAN11"
-    ],
+    "new_follow_backs": [],
     "session_ok": true,
     "errors": [
-      "skipped icallcoin: 4 coins created",
-      "skipped Mikasaaa: 18 coins created",
-      "skipped Derekdegen: 12 coins created",
-      "skipped 4DADS: 14 coins created",
-      "skipped 8j8eml: 50 coins created",
-      "skipped Rame7: 38 coins created",
-      "skipped meanihuy: 13 coins created",
-      "skipped 6pfako1: 23 coins created",
-      "skipped NeonLyingPlate: 3 coins created",
-      "skipped tm1: 21 coins created"
+      "skipped RocketSaberLip: 11 coins created",
+      "skipped GemAcidicMuskox: 4 coins created",
+      "skipped HodlLemonNavy: 16 coins created",
+      "skipped weesquid80271: 50 coins created",
+      "skipped warynarwhal8551: 12 coins created",
+      "skipped FirstPastColony: 9 coins created",
+      "skipped pissedsquid7414: 50 coins created",
+      "skipped teetriis: 10 coins created",
+      "skipped Herjar: 12 coins created",
+      "holding check failed: AgentClash"
     ]
   }
 }
