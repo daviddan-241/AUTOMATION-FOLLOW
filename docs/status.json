@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T13:05:30.656Z",
+  "generated_at": "2026-10-02T13:35:26.271Z",
   "ok": true,
   "controls": {
     "automation_enabled": true,
@@ -23,27 +23,29 @@
     "last_scan": "2026-10-01T13:31:44.370Z"
   },
   "last_cycle": {
-    "time": "2026-10-02T13:03:27.142Z",
+    "time": "2026-10-02T13:34:18.170Z",
     "coins_scanned": 1050,
     "devs_followed": [
-      "SnoobTech_",
-      "CookieAlderLute",
-      "splitmanta13916"
+      "RAKIIII",
+      "IvyMotleyStoat",
+      "BriefHalfElk",
+      "ZenQuillMochi",
+      "ScarletRustFrog"
     ],
     "likes_made": 0,
     "new_follow_backs": [],
     "session_ok": true,
     "errors": [
-      "skipped LyraHarpstrings: 10 coins created",
-      "skipped PAYPALexe: 39 coins created",
-      "skipped KeenLakeSteam: 22 coins created",
-      "skipped kramkram: 6 coins created",
-      "skipped BasaltFifthMove: 50 coins created",
-      "skipped NakaSat: 5 coins created",
-      "skipped TameModernPilot: 3 coins created",
-      "skipped CookieAjarCoat: 9 coins created",
-      "skipped LitheCalmGamer: 50 coins created",
-      "skipped sovereignpump: 21 coins created"
+      "skipped MaxRippleNoise: 3 coins created",
+      "skipped earthworks: 25 coins created",
+      "skipped voidcapp: 8 coins created",
+      "skipped Lalors: 37 coins created",
+      "skipped PushingPp: 3 coins created",
+      "skipped renzyboi: 13 coins created",
+      "skipped FlatHyperPotato: 3 coins created",
+      "skipped LovelyChadFork: 3 coins created",
+      "skipped zenkraken09815: 13 coins created",
+      "skipped WoodPaperTiger: 4 coins created"
     ]
   }
 }
